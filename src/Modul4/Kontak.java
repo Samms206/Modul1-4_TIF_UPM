@@ -137,6 +137,11 @@ public class Kontak extends javax.swing.JFrame {
         getContentPane().add(eNama, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 250, 30));
 
         btnHapus.setText("Hapus");
+        btnHapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHapusActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnHapus, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 260, 110, 40));
 
         btnCari.setText("Cari");
@@ -217,6 +222,12 @@ public class Kontak extends javax.swing.JFrame {
         // TODO add your handling code here:
         Edit();
     }//GEN-LAST:event_btnEditActionPerformed
+
+    private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
+        // TODO add your handling code here:
+        Hapus();
+        
+    }//GEN-LAST:event_btnHapusActionPerformed
     void show_data(){
         Object[] kolom = {
             "ID","Nama", "Jenis Kelamin", "Alamat", "No Telepon", "Pekerjaan"
@@ -307,6 +318,24 @@ public class Kontak extends javax.swing.JFrame {
                 ps.setString(6, id);
                 ps.executeUpdate();
                 JOptionPane.showMessageDialog(this, "Berhasil mengedit Data!");
+                show_data();
+                bersih();
+                enable_false();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+    void Hapus() {
+        int confirm = JOptionPane.showConfirmDialog(this, "Apakah Anda yakin ingin menghapus data?", "Konfirmasi Hapus", JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            try {
+                String sql = "DELETE FROM kontak WHERE id=?";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, id);
+                ps.executeUpdate();
+                JOptionPane.showMessageDialog(this, "Berhasil menghapus Data!");
                 show_data();
                 bersih();
                 enable_false();
