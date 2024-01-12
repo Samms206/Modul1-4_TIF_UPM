@@ -70,18 +70,18 @@ public class Kontak extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
-        setMinimumSize(new java.awt.Dimension(832, 416));
+        setMinimumSize(new java.awt.Dimension(900, 416));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("SF Pro Display", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("==== KONTAK ====");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 810, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 880, -1));
 
         jLabel2.setFont(new java.awt.Font("SF Pro Display", 0, 14)); // NOI18N
         jLabel2.setText("Nama");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
-        getContentPane().add(eCari, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 60, 220, 30));
+        getContentPane().add(eCari, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 60, 300, 30));
         getContentPane().add(eAlamat, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 250, 30));
 
         jLabel3.setFont(new java.awt.Font("SF Pro Display", 0, 14)); // NOI18N
@@ -134,7 +134,7 @@ public class Kontak extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tbl_kontak);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 100, 420, 290));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 100, 500, 290));
         getContentPane().add(eNama, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 250, 30));
 
         btnHapus.setText("Hapus");
@@ -151,7 +151,7 @@ public class Kontak extends javax.swing.JFrame {
                 btnCariActionPerformed(evt);
             }
         });
-        getContentPane().add(btnCari, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 60, 100, -1));
+        getContentPane().add(btnCari, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 60, 100, -1));
 
         btnTambah.setText("Tambah");
         btnTambah.addActionListener(new java.awt.event.ActionListener() {
@@ -183,7 +183,7 @@ public class Kontak extends javax.swing.JFrame {
                 btnCari1ActionPerformed(evt);
             }
         });
-        getContentPane().add(btnCari1, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 60, 100, -1));
+        getContentPane().add(btnCari1, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 60, 100, -1));
 
         pack();
         setLocationRelativeTo(null);
