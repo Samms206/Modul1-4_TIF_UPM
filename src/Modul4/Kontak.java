@@ -151,9 +151,15 @@ public class Kontak extends javax.swing.JFrame {
         }else{
             Tambah();
         }
-        
-        
     }//GEN-LAST:event_btnTambahActionPerformed
+    void bersih(){
+        eNama.setText("");
+        eAlamat.setText("");
+        eNotelp.setText("");
+        ePekerjaan.setText("");
+        jenkel="";
+        buttonGroup1.clearSelection();
+    }
     void Tambah(){
         if ("".equals(eNama.getText()) || "".equals(eAlamat.getText()) || "".equals(eNotelp.getText()) || "".equals(ePekerjaan.getText())) {
             JOptionPane.showMessageDialog(this, "Inputan masih kosong!!!");
@@ -173,6 +179,7 @@ public class Kontak extends javax.swing.JFrame {
                 preparedStatement.executeUpdate();
                 JOptionPane.showMessageDialog(this, "Berhasil menambahkan Data!");
                 btnTambah.setText("Tambah");
+                bersih();
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
