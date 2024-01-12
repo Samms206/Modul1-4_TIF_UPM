@@ -66,6 +66,7 @@ public class Kontak extends javax.swing.JFrame {
         btnTambah = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        btnCari1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -80,7 +81,7 @@ public class Kontak extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("SF Pro Display", 0, 14)); // NOI18N
         jLabel2.setText("Nama");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
-        getContentPane().add(eCari, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 60, 310, 30));
+        getContentPane().add(eCari, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 60, 220, 30));
         getContentPane().add(eAlamat, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 250, 30));
 
         jLabel3.setFont(new java.awt.Font("SF Pro Display", 0, 14)); // NOI18N
@@ -145,6 +146,11 @@ public class Kontak extends javax.swing.JFrame {
         getContentPane().add(btnHapus, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 260, 110, 40));
 
         btnCari.setText("Cari");
+        btnCari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCariActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnCari, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 60, 100, -1));
 
         btnTambah.setText("Tambah");
@@ -170,6 +176,14 @@ public class Kontak extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 340, 40));
+
+        btnCari1.setText("refresh");
+        btnCari1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCari1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnCari1, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 60, 100, -1));
 
         pack();
         setLocationRelativeTo(null);
@@ -228,6 +242,49 @@ public class Kontak extends javax.swing.JFrame {
         Hapus();
         
     }//GEN-LAST:event_btnHapusActionPerformed
+
+    private void btnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariActionPerformed
+        // TODO add your handling code here:
+    String keyword = eCari.getText().trim();
+    
+    if (!keyword.isEmpty()) {
+        try {
+            String sql = "SELECT * FROM kontak WHERE nama LIKE ?";
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, "%" + keyword + "%");
+            ResultSet rs = ps.executeQuery();
+
+            DefaultTableModel model = (DefaultTableModel) tbl_kontak.getModel();
+            model.setRowCount(0); // Menghapus data yang ada sebelumnya
+
+            while (rs.next()) {
+                Object[] row = {
+                    rs.getString("id"),
+                    rs.getString("nama"),
+                    rs.getString("jenkel"),
+                    rs.getString("alamat"),
+                    rs.getString("notelp"),
+                    rs.getString("pekerjaan")
+                };
+                model.addRow(row);
+            }
+
+            if (model.getRowCount() == 0) {
+                JOptionPane.showMessageDialog(this, "Data tidak ditemukan.");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    } else {
+        JOptionPane.showMessageDialog(this, "Masukkan kata kunci pencarian.");
+    }
+
+    }//GEN-LAST:event_btnCariActionPerformed
+
+    private void btnCari1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCari1ActionPerformed
+        // TODO add your handling code here:
+        show_data();
+    }//GEN-LAST:event_btnCari1ActionPerformed
     void show_data(){
         Object[] kolom = {
             "ID","Nama", "Jenis Kelamin", "Alamat", "No Telepon", "Pekerjaan"
@@ -382,6 +439,7 @@ public class Kontak extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCari;
+    private javax.swing.JButton btnCari1;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnHapus;
     private javax.swing.JButton btnTambah;
