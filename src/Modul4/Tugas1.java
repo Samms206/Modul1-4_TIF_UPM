@@ -7,7 +7,7 @@ package Modul4;
 
 /**
  *
- * @author macbookpro
+ * @author nasywa
  */
 public class Tugas1 {
     
