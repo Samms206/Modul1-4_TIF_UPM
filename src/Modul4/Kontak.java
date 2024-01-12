@@ -26,8 +26,9 @@ public class Kontak extends javax.swing.JFrame {
     ResultSet rs;
     Statement st;
     PreparedStatement ps;
-    String jenkel = "";
     DefaultTableModel model = new DefaultTableModel();
+    String jenkel = "";
+    String id = "0";
     
     public Kontak() {
         initComponents();
@@ -64,6 +65,7 @@ public class Kontak extends javax.swing.JFrame {
         btnCari = new javax.swing.JButton();
         btnTambah = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -124,6 +126,11 @@ public class Kontak extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tbl_kontak.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_kontakMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbl_kontak);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 100, 420, 290));
@@ -144,7 +151,20 @@ public class Kontak extends javax.swing.JFrame {
         getContentPane().add(btnTambah, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 100, 40));
 
         btnEdit.setText("Edit");
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 260, 110, 40));
+
+        jButton1.setText("Batal");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 340, 40));
 
         pack();
         setLocationRelativeTo(null);
@@ -163,6 +183,40 @@ public class Kontak extends javax.swing.JFrame {
             Tambah();
         }
     }//GEN-LAST:event_btnTambahActionPerformed
+
+    private void tbl_kontakMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_kontakMouseClicked
+        // TODO add your handling code here:
+        btnEdit.setEnabled(true);
+        btnHapus.setEnabled(true);
+        setEnabled();
+        int selectedRow = tbl_kontak.getSelectedRow();
+        if (selectedRow != -1) {
+            id = tbl_kontak.getValueAt(selectedRow, 0).toString();
+            eNama.setText(tbl_kontak.getValueAt(selectedRow, 1).toString());
+            String jk = tbl_kontak.getValueAt(selectedRow, 2).toString();
+            if ("Perempuan".equals(jk)) {
+                ePerempuan.setSelected(true);
+                ePerempuan.setSelected(false);
+            }else{
+                ePerempuan.setSelected(false);
+                eLaki.setSelected(true);
+            }
+            eAlamat.setText(tbl_kontak.getValueAt(selectedRow, 3).toString());
+            eNotelp.setText(tbl_kontak.getValueAt(selectedRow, 4).toString());
+            ePekerjaan.setText(tbl_kontak.getValueAt(selectedRow, 5).toString());
+        }
+    }//GEN-LAST:event_tbl_kontakMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        enable_false();
+        bersih();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        // TODO add your handling code here:
+        Edit();
+    }//GEN-LAST:event_btnEditActionPerformed
     void show_data(){
         Object[] kolom = {
             "ID","Nama", "Jenis Kelamin", "Alamat", "No Telepon", "Pekerjaan"
@@ -192,6 +246,8 @@ public class Kontak extends javax.swing.JFrame {
         eAlamat.setEnabled(false);
         eNotelp.setEnabled(false);
         ePekerjaan.setEnabled(false);
+        btnEdit.setEnabled(false);
+        btnHapus.setEnabled(false);
     }
     void setEnabled(){
         eNama.setEnabled(true);
@@ -235,6 +291,31 @@ public class Kontak extends javax.swing.JFrame {
             }
         }
     }
+    void Edit() {
+        if ("".equals(eNama.getText()) || "".equals(eAlamat.getText()) || "".equals(eNotelp.getText()) || "".equals(ePekerjaan.getText())) {
+            JOptionPane.showMessageDialog(this, "Inputan masih kosong!!!");
+        } else {
+            String jenkel = eLaki.isSelected() ? "Laki-laki" : "Perempuan";
+            try {
+                String sql = "UPDATE kontak SET nama=?, jenkel=?, alamat=?, notelp=?, pekerjaan=? WHERE id=?";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, eNama.getText());
+                ps.setString(2, jenkel);
+                ps.setString(3, eAlamat.getText());
+                ps.setString(4, eNotelp.getText());
+                ps.setString(5, ePekerjaan.getText());
+                ps.setString(6, id);
+                ps.executeUpdate();
+                JOptionPane.showMessageDialog(this, "Berhasil mengedit Data!");
+                show_data();
+                bersih();
+                enable_false();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -283,6 +364,7 @@ public class Kontak extends javax.swing.JFrame {
     private javax.swing.JTextField eNotelp;
     private javax.swing.JTextField ePekerjaan;
     private javax.swing.JRadioButton ePerempuan;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
