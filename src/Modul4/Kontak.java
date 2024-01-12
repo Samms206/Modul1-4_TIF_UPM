@@ -146,25 +146,38 @@ public class Kontak extends javax.swing.JFrame {
 
     private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
         // TODO add your handling code here:
-        if (eLaki.isSelected()) {
-            jenkel = "Laki-laki";
+        if ("Tambah".equals(btnTambah.getText())) {
+            btnTambah.setText("Simpan");
         }else{
-            jenkel = "Perempuan";
+            Tambah();
         }
-        String sql = "INSERT INTO kontak (nama, jenkel, alamat, notelp, pekerjaan) VALUES (?, ?, ?, ?, ?)";
-        try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
-            preparedStatement.setString(1, eNama.getText());
-            preparedStatement.setString(2, jenkel);
-            preparedStatement.setString(3, eAlamat.getText());
-            preparedStatement.setString(4, eNotelp.getText());
-            preparedStatement.setString(5, ePekerjaan.getText());
-            preparedStatement.executeUpdate();
-            JOptionPane.showMessageDialog(this, "Berhasil menambahkan Data!");
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+        
+        
     }//GEN-LAST:event_btnTambahActionPerformed
-
+    void Tambah(){
+        if ("".equals(eNama.getText()) || "".equals(eAlamat.getText()) || "".equals(eNotelp.getText()) || "".equals(ePekerjaan.getText())) {
+            JOptionPane.showMessageDialog(this, "Inputan masih kosong!!!");
+        }else{
+            if (eLaki.isSelected()) {
+            jenkel = "Laki-laki";
+            }else{
+                jenkel = "Perempuan";
+            }
+            String sql = "INSERT INTO kontak (nama, jenkel, alamat, notelp, pekerjaan) VALUES (?, ?, ?, ?, ?)";
+            try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
+                preparedStatement.setString(1, eNama.getText());
+                preparedStatement.setString(2, jenkel);
+                preparedStatement.setString(3, eAlamat.getText());
+                preparedStatement.setString(4, eNotelp.getText());
+                preparedStatement.setString(5, ePekerjaan.getText());
+                preparedStatement.executeUpdate();
+                JOptionPane.showMessageDialog(this, "Berhasil menambahkan Data!");
+                btnTambah.setText("Tambah");
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
     /**
      * @param args the command line arguments
      */
