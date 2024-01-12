@@ -7,8 +7,11 @@ package Modul4;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -20,12 +23,16 @@ public class Kontak extends javax.swing.JFrame {
      * Creates new form Kontak
      */
     Connection conn = Koneksi.Koneksi();
+    ResultSet rs;
+    Statement st;
+    PreparedStatement ps;
     String jenkel = "";
+    DefaultTableModel model = new DefaultTableModel();
     
     public Kontak() {
         initComponents();
         enable_false();
-        
+        show_data();
     }
 
     /**
@@ -60,12 +67,13 @@ public class Kontak extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
+        setMinimumSize(new java.awt.Dimension(832, 416));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("SF Pro Display", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("==== KONTAK ====");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 740, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 810, -1));
 
         jLabel2.setFont(new java.awt.Font("SF Pro Display", 0, 14)); // NOI18N
         jLabel2.setText("Nama");
@@ -139,6 +147,7 @@ public class Kontak extends javax.swing.JFrame {
         getContentPane().add(btnEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 260, 110, 40));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void ePekerjaanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ePekerjaanActionPerformed
@@ -154,6 +163,30 @@ public class Kontak extends javax.swing.JFrame {
             Tambah();
         }
     }//GEN-LAST:event_btnTambahActionPerformed
+    void show_data(){
+        Object[] kolom = {
+            "ID","Nama", "Jenis Kelamin", "Alamat", "No Telepon", "Pekerjaan"
+        };
+        model = new DefaultTableModel(null, kolom);
+        tbl_kontak.setModel(model);
+        try {
+          st = conn.createStatement();
+          rs = st.executeQuery("SELECT * FROM kontak");
+          while (rs.next()) {
+            Object[] data = {
+              rs.getString("id"),
+              rs.getString("nama"),
+              rs.getString("jenkel"),
+              rs.getString("alamat"),
+              rs.getString("notelp"),
+              rs.getString("pekerjaan")
+            };
+              model.addRow(data);
+          }
+        } catch(SQLException e) {
+            System.out.println("tabel : "+e.getMessage());
+        }
+    }
     void enable_false(){
         eNama.setEnabled(false);
         eAlamat.setEnabled(false);
@@ -183,16 +216,18 @@ public class Kontak extends javax.swing.JFrame {
             }else{
                 jenkel = "Perempuan";
             }
-            String sql = "INSERT INTO kontak (nama, jenkel, alamat, notelp, pekerjaan) VALUES (?, ?, ?, ?, ?)";
-            try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
-                preparedStatement.setString(1, eNama.getText());
-                preparedStatement.setString(2, jenkel);
-                preparedStatement.setString(3, eAlamat.getText());
-                preparedStatement.setString(4, eNotelp.getText());
-                preparedStatement.setString(5, ePekerjaan.getText());
-                preparedStatement.executeUpdate();
+            try {
+                String sql = "INSERT INTO kontak (nama, jenkel, alamat, notelp, pekerjaan) VALUES (?, ?, ?, ?, ?)";
+                ps = conn.prepareStatement(sql);
+                ps.setString(1, eNama.getText());
+                ps.setString(2, jenkel);
+                ps.setString(3, eAlamat.getText());
+                ps.setString(4, eNotelp.getText());
+                ps.setString(5, ePekerjaan.getText());
+                ps.executeUpdate();
                 JOptionPane.showMessageDialog(this, "Berhasil menambahkan Data!");
                 btnTambah.setText("Tambah");
+                show_data();
                 bersih();
                 enable_false();
             } catch (SQLException e) {
