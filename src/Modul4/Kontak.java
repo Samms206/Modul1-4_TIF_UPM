@@ -27,25 +27,26 @@ public class Kontak extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        eCari = new javax.swing.JTextField();
+        eAlamat = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        ePerempuan = new javax.swing.JRadioButton();
+        eLaki = new javax.swing.JRadioButton();
         jLabel5 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        eNotelp = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        ePekerjaan = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jTextField5 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        tbl_kontak = new javax.swing.JTable();
+        eNama = new javax.swing.JTextField();
+        btnHapus = new javax.swing.JButton();
+        btnCari = new javax.swing.JButton();
+        btnTambah = new javax.swing.JButton();
+        btnEdit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -59,8 +60,8 @@ public class Kontak extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("SF Pro Display", 0, 14)); // NOI18N
         jLabel2.setText("Nama");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 60, 310, 30));
-        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 250, 30));
+        getContentPane().add(eCari, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 60, 310, 30));
+        getContentPane().add(eAlamat, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 250, 30));
 
         jLabel3.setFont(new java.awt.Font("SF Pro Display", 0, 14)); // NOI18N
         jLabel3.setText("Jenis Kelamin");
@@ -70,29 +71,31 @@ public class Kontak extends javax.swing.JFrame {
         jLabel4.setText("Alamat");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, 30));
 
-        jRadioButton1.setText("Perempuan");
-        getContentPane().add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 100, -1, 30));
+        buttonGroup1.add(ePerempuan);
+        ePerempuan.setText("Perempuan");
+        getContentPane().add(ePerempuan, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 100, -1, 30));
 
-        jRadioButton2.setText("Laki-laki");
-        getContentPane().add(jRadioButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, -1, 30));
+        buttonGroup1.add(eLaki);
+        eLaki.setText("Laki-laki");
+        getContentPane().add(eLaki, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, -1, 30));
 
         jLabel5.setFont(new java.awt.Font("SF Pro Display", 0, 14)); // NOI18N
         jLabel5.setText("No Telepon");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, -1, 30));
-        getContentPane().add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 180, 250, 30));
+        getContentPane().add(eNotelp, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 180, 250, 30));
 
         jLabel6.setFont(new java.awt.Font("SF Pro Display", 0, 14)); // NOI18N
         jLabel6.setText("Pekerjaan");
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, 30));
 
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+        ePekerjaan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
+                ePekerjaanActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 220, 250, 30));
+        getContentPane().add(ePekerjaan, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 220, 250, 30));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_kontak.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -103,29 +106,29 @@ public class Kontak extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tbl_kontak);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 100, 420, 290));
-        getContentPane().add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 250, 30));
+        getContentPane().add(eNama, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 250, 30));
 
-        jButton1.setText("Hapus");
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 260, 110, 40));
+        btnHapus.setText("Hapus");
+        getContentPane().add(btnHapus, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 260, 110, 40));
 
-        jButton2.setText("Cari");
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 60, 100, -1));
+        btnCari.setText("Cari");
+        getContentPane().add(btnCari, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 60, 100, -1));
 
-        jButton3.setText("Tambah");
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 100, 40));
+        btnTambah.setText("Tambah");
+        getContentPane().add(btnTambah, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 100, 40));
 
-        jButton4.setText("Edit");
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 260, 110, 40));
+        btnEdit.setText("Edit");
+        getContentPane().add(btnEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 260, 110, 40));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void ePekerjaanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ePekerjaanActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_ePekerjaanActionPerformed
 
     /**
      * @param args the command line arguments
@@ -163,24 +166,25 @@ public class Kontak extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton btnCari;
+    private javax.swing.JButton btnEdit;
+    private javax.swing.JButton btnHapus;
+    private javax.swing.JButton btnTambah;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JTextField eAlamat;
+    private javax.swing.JTextField eCari;
+    private javax.swing.JRadioButton eLaki;
+    private javax.swing.JTextField eNama;
+    private javax.swing.JTextField eNotelp;
+    private javax.swing.JTextField ePekerjaan;
+    private javax.swing.JRadioButton ePerempuan;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTable tbl_kontak;
     // End of variables declaration//GEN-END:variables
 }
