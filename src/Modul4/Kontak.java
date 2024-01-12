@@ -24,6 +24,7 @@ public class Kontak extends javax.swing.JFrame {
     
     public Kontak() {
         initComponents();
+        enable_false();
         
     }
 
@@ -147,11 +148,24 @@ public class Kontak extends javax.swing.JFrame {
     private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
         // TODO add your handling code here:
         if ("Tambah".equals(btnTambah.getText())) {
+            setEnabled();
             btnTambah.setText("Simpan");
         }else{
             Tambah();
         }
     }//GEN-LAST:event_btnTambahActionPerformed
+    void enable_false(){
+        eNama.setEnabled(false);
+        eAlamat.setEnabled(false);
+        eNotelp.setEnabled(false);
+        ePekerjaan.setEnabled(false);
+    }
+    void setEnabled(){
+        eNama.setEnabled(true);
+        eAlamat.setEnabled(true);
+        eNotelp.setEnabled(true);
+        ePekerjaan.setEnabled(true);
+    }
     void bersih(){
         eNama.setText("");
         eAlamat.setText("");
@@ -180,6 +194,7 @@ public class Kontak extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Berhasil menambahkan Data!");
                 btnTambah.setText("Tambah");
                 bersih();
+                enable_false();
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
