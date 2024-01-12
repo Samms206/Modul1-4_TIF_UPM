@@ -5,6 +5,11 @@
  */
 package Modul4;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author macbookpro
@@ -14,8 +19,12 @@ public class Kontak extends javax.swing.JFrame {
     /**
      * Creates new form Kontak
      */
+    Connection conn = Koneksi.Koneksi();
+    String jenkel = "";
+    
     public Kontak() {
         initComponents();
+        
     }
 
     /**
@@ -118,6 +127,11 @@ public class Kontak extends javax.swing.JFrame {
         getContentPane().add(btnCari, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 60, 100, -1));
 
         btnTambah.setText("Tambah");
+        btnTambah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTambahActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnTambah, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 100, 40));
 
         btnEdit.setText("Edit");
@@ -129,6 +143,27 @@ public class Kontak extends javax.swing.JFrame {
     private void ePekerjaanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ePekerjaanActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ePekerjaanActionPerformed
+
+    private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
+        // TODO add your handling code here:
+        if (eLaki.isSelected()) {
+            jenkel = "Laki-laki";
+        }else{
+            jenkel = "Perempuan";
+        }
+        String sql = "INSERT INTO kontak (nama, jenkel, alamat, notelp, pekerjaan) VALUES (?, ?, ?, ?, ?)";
+        try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
+            preparedStatement.setString(1, eNama.getText());
+            preparedStatement.setString(2, jenkel);
+            preparedStatement.setString(3, eAlamat.getText());
+            preparedStatement.setString(4, eNotelp.getText());
+            preparedStatement.setString(5, ePekerjaan.getText());
+            preparedStatement.executeUpdate();
+            JOptionPane.showMessageDialog(this, "Berhasil menambahkan Data!");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_btnTambahActionPerformed
 
     /**
      * @param args the command line arguments
